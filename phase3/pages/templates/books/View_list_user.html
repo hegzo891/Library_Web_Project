@@ -1,0 +1,104 @@
+{%block content%}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View list user</title>
+    <link rel="stylesheet" href="{% static "CSS/view_lists.css" %}">
+</head>
+<body>
+    <br>
+    <center>
+        <div class="navbar">
+            <a href="{% url "UserHome" %}">Home</a>
+            <a href="{% url "BorrowedBooks" %}"> My Books </a>
+            <a href="#">Profile</a>
+            <a href="Services.html">Services</a>
+            <a href="Blog.html">Blog</a>
+            <a href="FAQ.html">FAQ</a>
+            <a class="logout-btn" style="margin-left: 45%;">Log out</a>
+        </div>
+        <br>
+        <div class="page">
+            <p class="header">Books</p>
+            <div class="nav">
+                <select name="Category" id="Category" style="top: 207px;">
+                    <option value="all">All</option>
+                    <option value="horror">Horror</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="sciencefiction">Science Fiction</option>
+                    <option value="history">History</option>
+                    <option value="poetry">Poetry</option>
+                    <option value="drama">Drama</option>
+                    <option value="romantic">Romantic</option>
+                </select>
+                <form id="search-form" class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search here ......">
+                    <button type="submit"><img src="{% static "images/search.png" %}"></button>
+                </form>
+            </div>
+            <br><br>
+            <div class="image-container">
+                <br>
+                <div id="books-container" class="books-container">
+                    {% for book in book %}
+                    <div class="link">
+                        <br>
+                        <img src="{{ book.bCoverImage.url }}">
+                        <p class="caption" value="{{ book.bCategory }}">{{ book.bName }}</p>
+                        <div class="description">
+                            <div class="name">{{ book.bName }}</div>
+                            <div class="author">Author: {{ book.bAuthor }}</div>
+                            <div class="rate">Rating:
+                                <div class="ratings-wrapper">
+                                    <div data-productid="#" class="ratings">
+                                        <span data-ratings="5">&#9733;</span>
+                                        <span data-ratings="4">&#9733;</span>
+                                        <span data-ratings="3">&#9733;</span>
+                                        <span data-ratings="2">&#9733;</span>
+                                        <span data-ratings="1">&#9733;</span>
+                                    </div>
+                                </div>
+                            </div> 
+                            <br>
+                            <li class="date">Publish Date: {{ book.bPublishDate }}</li>
+                            <br>
+                            <button class="viewD-button" data-book-id="{{ book.id }}">View Details</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+    </center>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var viewDButtons = document.querySelectorAll(".viewD-button");
+        
+            viewDButtons.forEach(function(button) {
+                button.addEventListener("click", function(event) {
+                    var bookId = event.target.getAttribute("data-book-id");
+                    var url = "BookDetailsUser.html?id=" + bookId; 
+                    window.location.href = url;
+                });
+            });
+        });
+        
+        const logoutBtn = document.querySelector(".logout-btn")
+
+        logoutBtn.addEventListener("click", () => {
+            window.location.replace("/")
+        })
+    </script>
+    {% comment %} <script src="{% static "js/user.js" %}"></script> {% endcomment %}
+    {% comment %} <script src="JS/rate.js"></script> {% endcomment %}
+</body>
+</html>
+
+
+{%endblock content%}

@@ -1,0 +1,161 @@
+{% comment %} {% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowing Details</title>
+    <link rel="stylesheet" href="{% static 'CSS/Borrowing.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="{% url 'UserHome' %}">Home</a>
+        <a href="{% url 'UserList' %}">Books</a>
+        <a href="{% url 'BorrowedBooks' %}">My Books</a>
+        <a href="#">Profile</a>
+        <a href="#">Services</a>
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+        <a href="#">About Us</a>
+        <a class="logout-btn">Log out</a>
+    </div>
+    <br>
+
+    <h1 class="header">Borrowing details</h1>
+    <div class="borrowing" id="borrowing">
+        <form id="borrowForm" action="{% url 'ProcessBorrow' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ book.id }}">
+            <figure>
+                <img class="image" src="{{ book.bCoverImage.url }}" alt="{{ book.bName }}" width="250" height="350">
+            </figure>
+            <div>
+                <h2 id="name" class="name">{{ book.bName }}</h2>
+            </div>
+            <div class="center">
+                <div>
+                    <label for="Date">Date :</label>
+                    <input type="date" required placeholder="Date" name="Date" class="input selected" id="borrowDate">
+                    <br>
+                    <input type="time" required placeholder="Time" name="Time" class="input selected" id="borrowTime" style="margin-left:58px;">
+                </div>
+                <div>
+                    <label for="Duration">Price :</label>
+                    <select name="Duration" required class="input selected" id="borrowDuration">
+                        <option value="day">10$ for a day</option>
+                        <option value="week">25$ for a week</option>
+                        <option value="2 weeks">33$ for 2 weeks</option>
+                        <option value="3 weeks">40$ for 3 weeks</option>
+                        <option value="4 weeks">45$ for a month</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+        
+            <div class="center" style="flex-direction: row;">
+                <button type="submit">Done</button>
+                <button type="button" onclick="cancelBorrowing()">Cancel</button>
+            </div>
+            <br>
+        </form>        
+    </div>
+    <script>
+        function cancelBorrowing() {
+            window.history.back(); 
+        }
+    </script>
+    <script src="{% static 'JS/user.js' %}"></script> 
+</body>
+
+</html>
+{% endblock content %} {% endcomment %}
+
+
+
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowing Details</title>
+    <link rel="stylesheet" href="{% static 'CSS/Borrowing.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="{% url 'UserHome' %}">Home</a>
+        <a href="{% url 'UserList' %}">Books</a>
+        <a href="{% url 'BorrowedBooks' %}">My Books</a>
+        <a href="#">Profile</a>
+        <a href="#">Services</a>
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+        <a href="#">About Us</a>
+        <a class="logout-btn">Log out</a>
+    </div>
+    <br>
+
+    <h1 class="header">Borrowing details</h1>
+    <div class="borrowing" id="borrowing">
+        <form id="borrowForm" action="{% url 'ProcessBorrow' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ book.id }}">
+            <figure>
+                <img class="image" src="{{ book.bCoverImage.url }}" alt="{{ book.bName }}" width="250" height="350">
+            </figure>
+            <div>
+                <h2 id="name" class="name">{{ book.bName }}</h2>
+            </div>
+            <div class="center">
+                <div>
+                    <label for="Date">Date :</label>
+                    <input type="date" required placeholder="Date" name="Date" class="input selected" id="borrowDate">
+                    <br>
+                    <input type="time" required placeholder="Time" name="Time" class="input selected" id="borrowTime" style="margin-left:58px;">
+                </div>
+                <div>
+                    <label for="Duration">Price :</label>
+                    <select name="Duration" required class="input selected" id="borrowDuration">
+                        <option value="day">10$ for a day</option>
+                        <option value="week">25$ for a week</option>
+                        <option value="2 weeks">33$ for 2 weeks</option>
+                        <option value="3 weeks">40$ for 3 weeks</option>
+                        <option value="4 weeks">45$ for a month</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+
+            <div class="center" style="flex-direction: row;">
+                <button type="submit">Done</button>
+                <button type="button" onclick="cancelBorrowing()">Cancel</button>
+            </div>
+            <br>
+        </form>        
+    </div>
+    <script>
+        function cancelBorrowing() {
+            window.history.back(); 
+        }
+    </script>
+    <script src="{% static 'JS/user.js' %}"></script>
+</body>
+
+</html>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View borrowed books</title>
+    <link rel="stylesheet" href="{% static "CSS/view_lists.css"%}">
+</head>
+
+
+<body>
+    <br>
+    <center>
+        <div class="navbar">
+            <a href="{% url "UserHome" %}">Home</a>
+            <a href="#">Profile</a>
+            <a href="{% url "UserList" %}">Books</a>
+            <a href="Services.html">Services</a>
+            <a href="Blog.html">Blog</a>
+            <a href="FAQ.html">FAQ</a>
+            <a class="logout-btn" style="margin-left: 45%;">Log out</a>
+        </div>
+        <br>
+        <div class="page">
+            <p class="header">My Books</p>
+            <div class="nav">
+                <select name="Category" id="Category" style="top: 207px;">
+                    <option value="1">All</option>
+                    <option value="2">Horror</option>
+                    <option value="3">Fantasy</option>
+                    <option value="4">Science Fection</option>
+                    <option value="5">History</option>
+                    <option value="6">Poetry</option>
+                    <option value="7">Drama</option>
+                    <option value="8">Romantic</option>
+                </select>
+                <form action="" method="get" class="search-bar">
+                    <input type="text" placeholder="Search here ......">
+                    <button type="submit"><img src="{% static "images/search.png" %}"></button>
+                </form>
+            </div>
+            <br><br>
+            <div class="image-container">
+                <br>
+                <div id="books_container" class="books-container">
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        displayBorrowedBooks() 
+                      });
+                </script>
+            </div>
+            <br><br>
+    </center>
+    <script src="JS/Borrowing.js"></script>
+    <script src="JS/rate.js"></script>
+
+</body>
+
+</html>

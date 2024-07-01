@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="{% static "css/inputs.css" %}">
+    <style>
+        body {
+            background: url('{% static "images/13.jpg" %}');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            align-items: center; /* This line may not have any effect on the body tag */
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="navbar">
+            <a href="{%url 'Home_page'%}">Home</a>
+            <a href="Services.html">Services</a>
+            <a href="Blog.html">Blog</a>
+            <a href=".html">About us</a>
+            <a href="FAQ.html">FAQ</a>
+        </div>
+    </center>
+    <div class="login-box">
+        <div class="form-container">
+            <form method="POST" action="" class="form-input" >
+                {% csrf_token %}
+                <p class="header">Create an account</p>
+                <b>
+                    <label for="firstname" style="margin-right:5px; ">First Name:</label>
+                    <label for="lastname" style="margin-left:100px;">Last Name:</label>
+
+                    <input type="text" id="firstname" name="firstname" placeholder="Enter your First Name" required
+                        style="width:157px;">
+
+                    <input type="text" id="lastname" name="lastname" placeholder="Enter your Last Name" required
+                        style="width:156px;margin-left:30px;"><br><br>
+
+                    <label for="username" style="margin-right:5px;">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter the Username" required><br><br>
+
+                    <label for="email" style="margin-right:37px;">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter the Email" required><br><br>
+
+                    <label for="password" style="margin-right:7px;">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter the Password"
+                        required><br><br>
+
+                    <label for="confirm-password" style="margin-right:5px;">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password"
+                        placeholder="Enter the Password" required><br><br>
+
+                    <center>
+                        <div>
+                            <input type="radio" id="Choice1" name="Type" value="Admin" />
+                            <label for="Choice1" style="margin-right:25px;">Admin</label>
+
+                            <input type="radio" id="Choice2" name="Type" value="User" />
+                            <label for="Choice2">User</label>
+                        </div>
+                    </center>
+                    <br>
+                    <center>
+                        <button type="submit" id="signup" style="font-size: 20px;width: 350px;margin-left:60px;
+                            background-color:rgba(103, 146, 81, 0.197);">Sign Up</button>
+                        <br><br>
+                        <a href="{% url "Login" %}" style="font-size:15px; color: #000000; padding-left:20px"> Have an
+                            account?</a>
+                        <p id="type"></p>
+                    </center>
+                </b>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+    {% if username_exists %}
+    <script>
+        alert('Username already exists. Please choose a different one.');
+    </script>
+    {% endif %}
+    <script src="JS/script.js"></script>
+</body>
+
+</html>

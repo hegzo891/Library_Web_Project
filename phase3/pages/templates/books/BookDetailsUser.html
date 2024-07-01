@@ -1,0 +1,95 @@
+{% block content %}
+  {% load static %}
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Book Details</title>
+      <link rel="stylesheet" href="{% static 'CSS/BookDetailsUser.css' %}" />
+      <style>
+        .description pre {
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            font-size: larger; 
+            max-width: 800px; 
+            overflow: auto;
+        }        
+
+      </style>
+    </head>
+    <body>
+      <div>
+        <div class="navbar">
+          <a href="{% url 'UserHome' %}">Home</a>
+          <a href="{% url 'UserList' %}">Books</a>
+          <a href="{% url 'BorrowedBooks' %}">My Books</a>
+          <a href="#">Profile</a>
+          <a href="Services.html">Services</a>
+          <a href="Blog.html">Blog</a>
+          <a href="FAQ.html">FAQ</a>
+          <a class="logout-btn" style="margin-left: 590px;">Log out</a>
+        </div>
+        <div class="details">
+          <div class="container" id="container">
+            <div class="container" style="margin-top: 100px; margin-left: 50px;">
+              <div class="image">
+                <img src="{{ book.bCoverImage.url }}" alt="{{ book.bName }}" width="250" height="350" />
+              </div>
+              <div class="text">
+                <h1 id="name" style="font-size: xx-large;">{{ book.bName }}</h1>
+                <div class="rate">
+                  Rating:
+                  <div class="ratings-wrapper">
+                    <div data-productid="#" class="ratings">
+                      <span data-ratings="5">&#9733;</span>
+                      <span data-ratings="4">&#9733;</span>
+                      <span data-ratings="3">&#9733;</span>
+                      <span data-ratings="2">&#9733;</span>
+                      <span data-ratings="1">&#9733;</span>
+                    </div>
+                  </div>
+                </div>
+                <h2>Author: <strong>{{ book.bAuthor }}</strong></h2>
+                <h3>Genre: <strong>{{ book.bCategory }}</strong></h3>
+                <h4>Synopsis</h4>
+                <div class="description">
+                  <pre>{{ book.bDescription }}</pre>
+                </div>
+                <br>
+                <p>Publish Date: {{ book.bPublishDate }}</p>
+              </div>
+              <div id="borrow_me">
+                <button class="borrow-button" data-book-id="{{ book.id }}" 
+                style="margin-top: 225px; width: 220px; left: 45px;">
+                Borrow This Book</button>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var viewDButtons = document.querySelectorAll(".borrow-button");
+        
+            viewDButtons.forEach(function(button) {
+                button.addEventListener("click", function(event) {
+                    var bookId = event.target.getAttribute("data-book-id");
+                    var url = "Borrowing.html?id=" + bookId;
+                    window.location.href = url;
+                });
+            });
+        });
+        
+        const logoutBtn = document.querySelector(".logout-btn")
+
+        logoutBtn.addEventListener("click", () => {
+            window.location.replace("/")
+        })
+    </script>
+      <script src="{% static 'JS/user.js' %}"></script>
+    </body>
+  </html>
+{% endblock %}
